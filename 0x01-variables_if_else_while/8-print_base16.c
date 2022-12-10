@@ -2,12 +2,14 @@
 #include <stdlib.h>
 
 /*
- * main - main block
- * Description: prints all the numbers of base 16 in lowercase
+ * * main - prints the phrase
  *
- * Return: Always 0 (Success)
+ * * "Programming is like building a multilingual puzzle"
+ *
+ * * Return: 0 if exited properly, non-zero otherwise
  */
- int main(void)
+
+int main(void)
 {
 	int num = '0'; /*Initialize num to 0*/
 	char letter = 'a'; /*Initialize letter to a*/
