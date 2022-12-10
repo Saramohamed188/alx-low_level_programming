@@ -7,7 +7,7 @@
  * Return: Always 0 (Success)
  */
 
-int main(void)
+int main(void) /*prints all the numbers of base 16 in lowercase*/
 {
 	int num = '0'; /*Initialize num to 0*/
 	char letter = 'a'; /*Initialize letter to a*/
