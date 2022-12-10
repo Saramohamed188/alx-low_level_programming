@@ -8,30 +8,27 @@
  */
 
 int main(void)
-
 {
-	int ones = '0';
-	int tens = '0';
-	
-	for (tens = '0'; tens <= '9'; tens++)/* prints tens digit*/
+	int num1, num2;
+
+	for (num1 = 48; num1 <= 56; num1++)
 	{
-		for (ones = '0'; ones <= '9'; ones++)/* prints ones digit*/
+		for (num2 = 49; num2 <= 57; num2++)
 		{
-			if (!((ones == tens) || (tens > ones)))/*eliminates repitition*/
+			if (num1 != num2 && num2 > num1)
 			{
-				putchar(tens);
-				putchar(ones);
-				if (!(ones == '9' && tens == '8'))/*addes commma and space*/
+				putchar(num1);
+				putchar(num2);
+				if (num1 < 56 || num2 < 57)
 				{
-					putchar(',');
+					putchar(44);
 					putchar(' ');
 				}
 			}
 		}
 	}
-	
+
 	putchar('\n');
 
 	return (0);
-
 }
