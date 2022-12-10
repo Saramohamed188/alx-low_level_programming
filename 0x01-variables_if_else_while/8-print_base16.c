@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
- * * main - prints the phrase
+/**
+ * main - prints all the numbers of base 16 in lowercase
  *
- * * "Programming is like building a multilingual puzzle"
- *
- * * Return: 0 if exited properly, non-zero otherwise
+ * Return: Always 0 (Success)
  */
 
 int main(void)
