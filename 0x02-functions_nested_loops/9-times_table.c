@@ -1,7 +1,7 @@
 #include"main.h"
 
 /**
- * times_table - prints the 9 times table
+ * time_teble - prints the 9 times table
  *
  * Example Table
  * 0, 0, 0, 0, ..
@@ -9,7 +9,7 @@
  *
 */
 
-void times_table(void)
+void time_teble(void)
 {
 	int num, mult, prod;
 
