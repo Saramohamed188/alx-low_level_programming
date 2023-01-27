@@ -4,37 +4,24 @@
 #include "lists.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * print_list - prints list.
+ * @h: param list
+ * Return: struct
  */
-int main(void)
+
+size_t print_list(const list_t *h)
 {
-list_t *head;
-list_t *new;
-list_t hello = {"World", 5, NULL};
-size_t n;
+	size_t l_node;
 
-head = &hello;
-new = malloc(sizeof(list_t));
-if (new == NULL)
-{
-printf("Error\n");
-return (1);
-}
-new->str = strdup("Hello");
-new->len = 5;
-new->next = head;
-head = new;
-n = print_list(head);
-printf("-> %lu elements\n", n);
-
-printf("\n");
-free(new->str);
-new->str = NULL;
-n = print_list(head);
-printf("-> %lu elements\n", n);
-
-free(new);
-return (0);
+	l_node = 0;
+	while (h != NULL)
+	{
+		if (h->str == NULL)
+			printf("[%d] %s\n", 0, "(nil)");
+		else
+			printf("[%d] %s\n", h->len, h->str);
+		h = h->next;
+		l_node++;
+	}
+	return (l_node);
 }
