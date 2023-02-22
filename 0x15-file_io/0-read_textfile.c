@@ -1,38 +1,53 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <fcntl.h>
+#include "main.h"
 
 /**
- * read_textfile - Reads a textfile and prints it to the POSIX standard output.
- * @filename: The filename.
- * @letters: The number of letters to read and print.
- * Return: The actual number of letters it could read and print if everything
- *	   runs well. 0 otherwise.
+ * read_textfile - reads and prints from a file
+ * @filename: path to file
+ * @letters: chars to read
+ * Return: chars read
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	char *buffer;
-	int fd, tmp = 1;
-	size_t read_size = 0;
+	int fd;
+	char *buff;
+	ssize_t bytes, r;
 
-	printf("la taille est %ld", letters);
 	if (!filename)
 		return (0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
+	{
+		close(fd);
 		return (0);
-	buffer = malloc(letters * sizeof(char));
-	buffer[letters] = '\0';
-	do {
-		tmp = read(fd, buffer, letters);
-		read_size += tmp;
-	} while (tmp);
+	}
+
+	buff = malloc(sizeof(char) * letters);
+	if (!buff)
+	{
+		close(fd);
+		return (0);
+	}
+
+	bytes = read(fd, buff, letters);
+
+	if (bytes == -1)
+	{
+		close(fd);
+		free(buff);
+		return (0);
+	}
+
+	r = write(STDOUT_FILENO, buff, bytes);
+
+	if (r == -1)
+	{
+		close(fd);
+		free(buff);
+		return (0);
+	}
 	close(fd);
-	if (read_size != letters)
-		return (0);
-	write(1, buffer, letters);
-	return (read_size);
+	return (bytes);
 }
