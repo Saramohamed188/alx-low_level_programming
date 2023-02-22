@@ -1,36 +1,38 @@
-#include "notrebloh.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 /**
- * read_textfile - function to read and write a file
- * @filename: const char type pointer to file to be read
- * @letters: size_t type
- * Return: always successful
+ * read_textfile - Reads a textfile and prints it to the POSIX standard output.
+ * @filename: The filename.
+ * @letters: The number of letters to read and print.
+ * Return: The actual number of letters it could read and print if everything
+ *	   runs well. 0 otherwise.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd;
-	ssize_t fdread, fdwrite, fdclose;
-	char *space;
+	char *buffer;
+	int fd, tmp = 1;
+	size_t read_size = 0;
 
-	if (filename == NULL)
+	printf("la taille est %ld", letters);
+	if (!filename)
 		return (0);
-	space = malloc(sizeof(char) * letters);
-	if (space == NULL)
-	{
-		return (-1);
-	}
-
 	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	if(fd == -1)
 		return (0);
-	fdread = read(fd, space, letters);
-	if (fdread == -1)
-		return (-1);
-	fdwrite = write(STDOUT_FILENO, space, fdread);
-
-	if (fdwrite == -1)
-		return (-1);
-	fdclose = close(fd);
-	if (fdclose == -1)
-		return (-1);
-	return (fdread);
+	buffer = malloc(letters * sizeof(char));
+	buffer[letters] = '\0';
+	do {
+		tmp = read(fd, buffer, letters);
+		read_size += tmp;
+	} while (tmp); 
+	close(fd);
+	if (read_size != letters)
+		return (0);
+	write(1, buffer, letters);
+	return (read_size);
 }
